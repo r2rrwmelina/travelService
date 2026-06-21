@@ -67,6 +67,18 @@ public class TravelInvalidTest {
         travelPage.cardNumberError(message);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "**** ++++ //** $$$$, ''",
+            "ПРИВ ЕЕЕТ ПРИВ ЕЕЕТ, ''",
+            "1111 2222 3333 4444 5, 1111 2222 3333 4444"
+    })
+    void shouldIgnoreInvalidCardNumberInput(String value, String expected) {
+        var info = DataHelper.Payment.getValidCardInfo().withCardNumber(value);
+        travelPage.completeCardForm(info);
+        assertEquals(expected, travelPage.getValueOfCardNumberField());
+    }
+
     // Поле месяца
     @ParameterizedTest
     @CsvSource({
@@ -89,6 +101,18 @@ public class TravelInvalidTest {
         travelPage.completeCardForm(info);
         travelPage.sendForm();
         travelPage.monthError("Неверно указан срок действия карты");
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "?!, ''",
+            "ЕТ, ''",
+            "111, 11"
+    })
+    void shouldIgnoreInvalidMonthInput(String value, String expected) {
+        var info = DataHelper.Payment.getValidCardInfo().withMonth(value);
+        travelPage.completeCardForm(info);
+        assertEquals(expected, travelPage.getValueOfMonthField());
     }
 
     // Поле года
@@ -123,6 +147,18 @@ public class TravelInvalidTest {
         travelPage.yearError("Неверно указан срок действия карты");
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "?!, ''",
+            "ЕТ, ''",
+            "266, 26"
+    })
+    void shouldIgnoreInvalidYearInput(String value, String expected) {
+        var info = DataHelper.Payment.getValidCardInfo().withYear(value);
+        travelPage.completeCardForm(info);
+        assertEquals(expected, travelPage.getValueOfYearField());
+    }
+
     // Владелец
     @Test
     void shouldShowErrorWithEmptyOwnerField() {
@@ -143,42 +179,6 @@ public class TravelInvalidTest {
         travelPage.completeCardForm(info);
         travelPage.sendForm();
         travelPage.cvcError(message);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "**** ++++ //** $$$$, ''",
-            "ПРИВ ЕЕЕТ ПРИВ ЕЕЕТ, ''",
-            "1111 2222 3333 4444 5, 1111 2222 3333 4444"
-    })
-    void shouldIgnoreInvalidCardNumberInput(String value, String expected) {
-        var info = DataHelper.Payment.getValidCardInfo().withCardNumber(value);
-        travelPage.completeCardForm(info);
-        assertEquals(expected, travelPage.getValueOfCardNumberField());
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "?!, ''",
-            "ЕТ, ''",
-            "111, 11"
-    })
-    void shouldIgnoreInvalidMonthInput(String value, String expected) {
-        var info = DataHelper.Payment.getValidCardInfo().withMonth(value);
-        travelPage.completeCardForm(info);
-        assertEquals(expected, travelPage.getValueOfMonthField());
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "?!, ''",
-            "ЕТ, ''",
-            "266, 26"
-    })
-    void shouldIgnoreInvalidYearInput(String value, String expected) {
-        var info = DataHelper.Payment.getValidCardInfo().withYear(value);
-        travelPage.completeCardForm(info);
-        assertEquals(expected, travelPage.getValueOfYearField());
     }
 
     @ParameterizedTest
