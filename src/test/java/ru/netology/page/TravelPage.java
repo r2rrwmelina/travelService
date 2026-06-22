@@ -3,6 +3,7 @@ package ru.netology.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import io.qameta.allure.Step;
 import ru.netology.data.DataHelper;
 
 import java.time.Duration;
@@ -34,6 +35,7 @@ public class TravelPage {
     public TravelPage() {
     }
 
+    @Step("Заполнить форму оплаты тестовыми данными")
     public void completeCardForm(DataHelper.CardInfo info) {
         buttonBuy.click();
         formName.should(Condition.visible);
@@ -44,60 +46,73 @@ public class TravelPage {
         cvcField.setValue(info.getCvc());
     }
 
+    @Step("Нажать кнопку отправки")
     public void sendForm() {
         buttonSend.click();
     }
 
+    @Step("Отправить пустую форму")
     public void sendEmptyForm() {
         buttonBuy.click();
         buttonSend.click();
     }
 
+    @Step("Проверить появление нотификации об успешной операции")
     public void successTransaction(DataHelper.CardInfo info, String message) {
         completeCardForm(info);
         sendForm();
         successNotification.should(Condition.visible, Duration.ofSeconds(15)).should(Condition.text(message));
     }
 
+    @Step("Проверить появление нотификации об отмене операции")
     public void errorTransaction(DataHelper.CardInfo info, String message) {
         completeCardForm(info);
         sendForm();
         errorNotification.should(Condition.visible, Duration.ofSeconds(15)).should(Condition.text(message));
     }
 
+    @Step("Проверить ошибку валидации поля месяца")
     public void monthError(String message) {
         monthError.should(Condition.visible).should(Condition.text(message));
     }
 
+    @Step("Проверить ошибку валидации поля номера карты")
     public void cardNumberError(String message) {
         cardNumberError.should(Condition.visible).should(Condition.text(message));
     }
 
+    @Step("Проверить ошибку валидации поля года")
     public void yearError(String message) {
         yearError.should(Condition.visible).should(Condition.text(message));
     }
 
+    @Step("Проверить ошибку валидации поля Владелец")
     public void ownerError(String message) {
         ownerError.should(Condition.visible).should(Condition.text(message));
     }
 
+    @Step("Проверить ошибку валидации поля CVC")
     public void cvcError(String message) {
         cvcError.should(Condition.visible).should(Condition.text(message));
     }
 
-    public String getValueOfCardNumberField() {
-        return valueCardNumberField.getValue();
+    @Step("Проверить значение поля номера карты")
+    public void checkValueOfCardNumberField(String value) {
+        valueCardNumberField.should(Condition.value(value));
     }
 
-    public String getValueOfMonthField() {
-        return valueMonthField.getValue();
+    @Step("Проверить значение поля месяца")
+    public void checkValueOfMonthField(String value) {
+        valueMonthField.should(Condition.value(value));
     }
 
-    public String getValueOfYearField() {
-        return valueYearField.getValue();
+    @Step("Проверить значение поля года")
+    public void checkValueOfYearField(String value) {
+        valueYearField.should(Condition.value(value));
     }
 
-    public String getValueOfCVCField() {
-        return valueCVCField.getValue();
+    @Step("Проверить значение поля CVC")
+    public void checkValueOfCVCField(String value) {
+        valueCVCField.should(Condition.value(value));
     }
 }
