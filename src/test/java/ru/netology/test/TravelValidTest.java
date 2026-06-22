@@ -1,6 +1,7 @@
 package ru.netology.test;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Description;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TravelValidTest {
 
+    TravelPage travelPage;
+    String message = "Успешно Операция одобрена Банком.";
+
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -26,6 +30,7 @@ public class TravelValidTest {
     void setUp() {
         SQLHelper.cleanData();
         open("http://localhost:8080/");
+        travelPage = new TravelPage();
     }
 
     @AfterAll
@@ -33,10 +38,8 @@ public class TravelValidTest {
         SelenideLogger.removeListener("allure");
     }
 
-    TravelPage travelPage = new TravelPage();
-    String message = "Успешно Операция одобрена Банком.";
-
     @Test
+    @Description("Проверка кейса TC-1")
     public void shouldToPerformSuccessTransactionWithApprovedCard() {
         var info = DataHelper.Payment.getValidCardInfo();
         travelPage.successTransaction(info, message);
@@ -45,6 +48,7 @@ public class TravelValidTest {
     }
 
     @ParameterizedTest
+    @Description("Проверка кейсов: TC-25, TC-26, TC-27")
     @CsvSource({
             "IVANOV IVAN-VICTOR",
             "IVANOV IVAN VICTOR",
@@ -56,8 +60,9 @@ public class TravelValidTest {
     }
 
     @Test
+    @Description("Проверка кейса TC-35")
     void shouldToPerformSuccessTransactionWithThreeZeroInCVC() {
-        var info = DataHelper.Payment.getValidCardInfo().withCvc("000");
+        var info = DataHelper.Payment.getValidCardInfo().withCvc(DataHelper.Payment.getZeroCVC());
         travelPage.successTransaction(info, message);
     }
 }
