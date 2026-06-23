@@ -12,6 +12,6 @@
 <img width="1168" height="553" alt="Отчет allure" src="https://github.com/user-attachments/assets/6b4a0fd4-4b69-4cbc-8290-d86fe409f35c" />
 
 ## Общие рекомендации
-В ходе тестирования выявлены два бага:
+В ходе тестирования выявлены баги:
 1. *Высокий приоритет*. Появляется успешная нотификация при отправке формы с отклоненной картой. Проблема локализуется в фронтенде, так операция в базе данных находится в статусе "DECLINED" [Issue #1](https://github.com/r2rrwmelina/travelService/issues/1#issue-4724094869)
-2. *Средний приоритет*. Отсутствует валидация у поля имени владельца. Форма отправляется успешно при использовании недопустимых значений в поле ввода [Issue #2](https://github.com/r2rrwmelina/travelService/issues/2#issue-4724354131)
+2. *Средний приоритет*. Отсутствует валидация у поля имени владельца. Форма отправляется успешно при использовании недопустимых значений в поле ввода [Issue #2](https://github.com/r2rrwmelina/travelService/issues/2#issue-4724354131), [Issue #3](https://github.com/r2rrwmelina/travelService/issues/3#issue-4727650932), [Issue #4](https://github.com/r2rrwmelina/travelService/issues/4#issue-4727696326), [Issue #5](https://github.com/r2rrwmelina/travelService/issues/5#issue-4727731192), [Issue #6](https://github.com/r2rrwmelina/travelService/issues/6#issue-4727757989), [Issue #7](https://github.com/r2rrwmelina/travelService/issues/7#issue-4727788088).
