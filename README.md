@@ -1,3 +1,4 @@
+[![Java CI with Gradle](https://github.com/r2rrwmelina/travelService/actions/workflows/gradle.yml/badge.svg)](https://github.com/r2rrwmelina/travelService/actions/workflows/gradle.yml)
 # Travel Service Test Automation
 
 Автоматизация тестирования веб-сервиса покупки тура "Путешествие дня". Сервис предоставляет два способа оплаты: по дебетовой карте и в кредит.
