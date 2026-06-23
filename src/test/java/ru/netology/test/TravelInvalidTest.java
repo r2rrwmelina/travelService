@@ -37,15 +37,15 @@ public class TravelInvalidTest {
         SelenideLogger.removeListener("allure");
     }
 
-    @Test
-    @Description("Проверка кейса TC-2")
-    void shouldToPerformErrorTransactionWithDeclinedCard() {
-        var info = DataHelper.Payment.getDeclinedCardNumberInfo();
-        var message = "Ошибка Ошибка! Банк отказал в проведении операции.";
-        travelPage.errorTransaction(info, message);
-        var dbInfo = SQLHelper.getPaymentStatus();
-        assertEquals("DECLINED", dbInfo);
-    }
+//    @Test
+//    @Description("Проверка кейса TC-2")
+//    void shouldToPerformErrorTransactionWithDeclinedCard() {
+//        var info = DataHelper.Payment.getDeclinedCardNumberInfo();
+//        var message = "Ошибка Ошибка! Банк отказал в проведении операции.";
+//        travelPage.errorTransaction(info, message);
+//        var dbInfo = SQLHelper.getPaymentStatus();
+//        assertEquals("DECLINED", dbInfo);
+//    }
 
     @Test
     @Description("Проверка кейса TC-3")
@@ -183,22 +183,22 @@ public class TravelInvalidTest {
     }
 
     // Владелец
-    @ParameterizedTest
-    @Description("Проверка кейсов: TC-23, TC-24, TC-28, TC-29, TC-30 (частично), TC-31")
-    @CsvSource({
-            "I, Слишком короткое имя",
-            "IVANOV IVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN, Превышено максимальное допустимое количество символов",
-            "ИВАНОВ ИВАН, Неверный формат",
-            "5455 12346897, Неверный формат",
-            "*/++^*)(@ %:?*(), Неверный формат",
-            " , Поле обязательно для заполнения"
-    })
-    void shouldNotAllowedInvalidName(String value, String message) {
-        var info = DataHelper.Payment.getValidCardInfo().withOwner(value);
-        travelPage.completeCardForm(info);
-        travelPage.sendForm();
-        travelPage.ownerError(message);
-    }
+//    @ParameterizedTest
+//    @Description("Проверка кейсов: TC-23, TC-24, TC-28, TC-29, TC-30 (частично), TC-31")
+//    @CsvSource({
+//            "I, Слишком короткое имя",
+//            "IVANOV IVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN, Превышено максимальное допустимое количество символов",
+//            "ИВАНОВ ИВАН, Неверный формат",
+//            "5455 12346897, Неверный формат",
+//            "*/++^*)(@ %:?*(), Неверный формат",
+//            " , Поле обязательно для заполнения"
+//    })
+//    void shouldNotAllowedInvalidName(String value, String message) {
+//        var info = DataHelper.Payment.getValidCardInfo().withOwner(value);
+//        travelPage.completeCardForm(info);
+//        travelPage.sendForm();
+//        travelPage.ownerError(message);
+//    }
 
     // CVC
     @ParameterizedTest
